@@ -5,3 +5,4 @@
 
 #Ignore the below directories
 data/
+.vscode/
