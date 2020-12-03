@@ -6,3 +6,6 @@
 #Ignore the below directories
 data/
 .vscode/
+
+*__pycache__/
+.ipynb_checkpoints/
