@@ -3,6 +3,8 @@
 
 .git
 
+poetry.lock
+.ipynb_checkpoints/
 #Ignore the below directories
 data/
 .vscode/

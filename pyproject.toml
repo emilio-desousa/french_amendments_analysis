@@ -9,9 +9,14 @@ python = "^3.8"
 pandas = "^1.1.4"
 matplotlib = "^3.3.3"
 scikit-learn = "^0.23.2"
+Unidecode = "^1.1.1"
+nltk = "^3.5"
+wget = "^3.2"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.19.0"
+ipykernel = "^5.3.4"
+tdqm = "^0.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
