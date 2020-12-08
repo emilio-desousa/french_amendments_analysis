@@ -34,3 +34,23 @@ COLUMNS = [
     "etat",
     "sous_etat",
 ]
+
+AMENDEMENT = "expose_sommaire"
+FLAG_DICT = {
+    r'/^(?!(?:1975)$)\d+/' : 'flag_numero',
+    r'\bANCT\b' : 'flag_territoire',
+    r'\b1975\b' : 'flag_retraite',
+    r'\b[A-Za-z]\b': ''
+}
+TOPICS_DICT = {
+    '0': 'Administratif (vote, scrutin, marchés publics)',
+    '1': 'Retrait & contestation de loi / decret etc',
+    '2': 'Immobilier & urbanisme',
+    '3': 'Naissances & procreation',
+    '4': 'Justice, sécurité, pénal',
+    '5': 'Politique echelle commune & regions',
+    '6': 'Travail,Entreprises',
+    '7': 'Fiscalité des particuliers',
+    '8': 'Santé, Handicap',
+    '9': 'Ecologie, Traitement dechet'
+}
