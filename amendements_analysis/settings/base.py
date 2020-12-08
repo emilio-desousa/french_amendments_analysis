@@ -34,3 +34,6 @@ COLUMNS = [
     "etat",
     "sous_etat",
 ]
+
+
+STOPWORDS_TO_ADD = ['amendement', 'article', 'cette', 'cet', 'cela', 'leurs', 'plus', 'afin', 'donc', 'ores', 'etre']
