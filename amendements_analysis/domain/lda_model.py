@@ -19,7 +19,6 @@ class LatentDirichletAllocationModel:
     @property
     def lda_model(self):
         processed_amendments_list = self._data_preparation()
-        processed_amendments_list, _ = train_test_split(processed_amendments_list, test_size=0.9, shuffle=True)
         lda = LatentDirichletAllocation(**stg.PARAMETERS_LDA).fit_transform(processed_amendments_list)
         return lda
     
