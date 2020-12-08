@@ -57,3 +57,20 @@ TOPICS_DICT = {
 
 
 STOPWORDS_TO_ADD = ['amendement', 'article', 'cette', 'cet', 'cela', 'leurs', 'plus', 'afin', 'donc', 'ores', 'etre']
+
+PARAMETERS_CV = {
+    'strip_accents': 'unicode',
+    'lowercase': True,
+    'min_df': 0.01,
+    'max_df': 0.50,
+    'ngram_range': (1,2),
+    'token_pattern': r'\b[^\d\W]+\b'
+}
+
+
+PARAMETERS_LDA = {
+    'n_components': 10,
+    'doc_topic_prior': 0.7,
+    'topic_word_prior': 0.5,
+    'verbose':1
+}
