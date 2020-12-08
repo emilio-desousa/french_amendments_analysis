@@ -19,9 +19,9 @@ class LatentDirichletAllocationModel:
     @property
     def lda_model(self):
         processed_amendments_list = self._data_preparation()
-        processed_amendments_list, _ = train_test_split(cleaned_amendments_list, test_size=0.9, shuffle=True)
-        lda = LatentDirichletAllocation(**stg.PARAMETERS_LDA).fit_transform(cleaned_amendments_list)
-        return 
+        processed_amendments_list, _ = train_test_split(processed_amendments_list, test_size=0.9, shuffle=True)
+        lda = LatentDirichletAllocation(**stg.PARAMETERS_LDA).fit_transform(processed_amendments_list)
+        return lda
     
     def _data_preparation(self):
         stopwords_list = self._set_stopwords_list()
@@ -44,4 +44,4 @@ class LatentDirichletAllocationModel:
 if __name__ == "__main__":
     df = DatasetBuilder().data
     amendments_list = DatasetCleaner(df, partition=10).sentences
-    print(amendments_list)
+    lda = LatentDirichletAllocationModel(amendments_list).lda_model
