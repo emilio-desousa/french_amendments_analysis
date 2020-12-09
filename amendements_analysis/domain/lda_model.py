@@ -12,12 +12,33 @@ from nltk.corpus import stopwords
 
 
 class LatentDirichletAllocationModel:
+    """
+    Performs a Latent Dirichlet model to a list of amendments
+
+    Attributes
+    ----------
+    amendments_list: list
+    
+    Properties
+    ----------
+    lda_model: sklearn.decomposition.LatentDirichletAllocation
+    """
 
     def __init__(self, amendments_list):
+        """Class initilization
+        Parameters
+        ----------
+        amendments_list: list
+        """
         self.amendments_list = amendments_list
 
     @property
     def lda_model(self):
+        """Property to perform the LDA
+        Returns
+        -------
+        lda_model: sklearn.decomposition.LatentDirichletAllocation
+        """
         processed_amendments_list = self._data_preparation()
         lda = LatentDirichletAllocation(**stg.PARAMETERS_LDA).fit_transform(processed_amendments_list)
         return lda
