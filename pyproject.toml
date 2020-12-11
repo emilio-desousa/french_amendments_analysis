@@ -12,11 +12,18 @@ scikit-learn = "^0.23.2"
 wget = "^3.2"
 tdqm = "^0.0.1"
 sentence-transformers = "^0.3.9"
+Unidecode = "^1.1.1"
+nltk = "^3.5"
+spacy = "^2.3.4"
+unicodedata2 = "^13.0.0"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.19.0"
 black = {version = "^20.8b1", allow-prereleases = true}
 flake8 = "^3.8.4"
+[tool.poetry.dependencies.fr_core_news_md]
+url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-2.3.0/fr_core_news_md-2.3.0.tar.gz"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
