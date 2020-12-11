@@ -5,10 +5,9 @@ import os
 import re
 import spacy
 import unicodedata, unidecode
-import nltk
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
-os.system('python3 -m spacy download fr_core_news_md')
+
 import fr_core_news_md
 
 class TextCleaner():

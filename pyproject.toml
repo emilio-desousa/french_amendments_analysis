@@ -21,6 +21,9 @@ unicodedata2 = "^13.0.0"
 ipython = "^7.19.0"
 black = {version = "^20.8b1", allow-prereleases = true}
 flake8 = "^3.8.4"
+[tool.poetry.dependencies.fr_core_news_md]
+url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-2.3.0/fr_core_news_md-2.3.0.tar.gz"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
