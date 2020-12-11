@@ -19,6 +19,8 @@ URL_TO_DL_DATA = (
     "http://data.assemblee-nationale.fr/static/openData/repository/15/loi/amendements_legis/Amendements_XV.json.zip"
 )
 
+SENTENCE_EMBEDDINGS_FILENAME = "FinedTunedBert_fullDF.npy"
+
 SOURCE_COLUMNS = [
     "amendement",
     "uid",
@@ -68,8 +70,8 @@ TOPICS_DICT = {
     '6': 'Politique Cohésion Territoriale (National)',
     '7': 'Immobilier & Urbanisme',
     '8': 'Alimentaire, Elevage, Agriculture & traitement des Déchets',
-    '9': 'Rectification / contestations de lois (vote, scrutin)',
-    '10': 'Service Publique (éducations, transports publics ...)',
+    '9': 'Rectification / Contestation de lois (vote, scrutin)',
+    '10': 'Service Publique (éducation, transports publics, radio ...)',
     '11': 'Financements des Secteurs',
     '12': 'Gestion Budgétaire'
 }
