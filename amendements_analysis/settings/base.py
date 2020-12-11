@@ -19,6 +19,8 @@ URL_TO_DL_DATA = (
     "http://data.assemblee-nationale.fr/static/openData/repository/15/loi/amendements_legis/Amendements_XV.json.zip"
 )
 
+SENTENCE_EMBEDDINGS_FILENAME = "FinedTunedBert_fullDF.npy"
+
 SOURCE_COLUMNS = [
     "amendement",
     "uid",
@@ -73,9 +75,6 @@ TOPICS_DICT = {
     '11': 'Financements des Secteurs',
     '12': 'Gestion Budgétaire'
 }
-
-
-
 
 STOPWORDS_TO_ADD = ['amendement', 'article', 'cette', 'cet', 'cela', 'leurs', 'plus', 'afin', 'donc', 'ores', 'etre', 'nous', 'socialistes']
 
