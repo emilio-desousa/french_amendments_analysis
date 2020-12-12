@@ -11,11 +11,13 @@ matplotlib = "^3.3.3"
 scikit-learn = "^0.23.2"
 wget = "^3.2"
 tdqm = "^0.0.1"
-sentence-transformers = "^0.3.9"
 Unidecode = "^1.1.1"
 nltk = "^3.5"
 spacy = "^2.3.4"
 unicodedata2 = "^13.0.0"
+wandb = "^0.10.12"
+simpletransformers = "^0.51.3"
+torch = {url = "https://download.pytorch.org/whl/cu110/torch-1.7.0%2Bcu110-cp38-cp38-linux_x86_64.whl"}
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.19.0"

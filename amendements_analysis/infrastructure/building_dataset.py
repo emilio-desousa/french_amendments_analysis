@@ -24,7 +24,7 @@ class DatasetBuilder:
     data: pandas.DataFrame
     """
 
-    def __init__(self, is_split_sentence=True, rewrite_csv=False):
+    def __init__(self, is_split_sentence=False, rewrite_csv=False, get_only_amendments=True):
         """Class initilization
 
         Parameters
@@ -36,6 +36,7 @@ class DatasetBuilder:
         """
         self.is_split_sentence = is_split_sentence
         self.rewrite_csv = rewrite_csv
+        self.get_only_amendments = get_only_amendments
 
     @staticmethod
     def cleanString(text):
@@ -91,7 +92,34 @@ class DatasetBuilder:
             df = pd.read_csv(os.path.join(stg.INTERIM_DIR, stg.CSV_DATA_SPLITTED_FILENAME))
         else:
             df = self._get_data_from_all_jsons()
+
+        if self.get_only_amendments:
+            df.drop_duplicates(subset="expose_sommaire", keep=False, inplace=True)
+            df = df["expose_sommaire"]
         return df
+
+    def create_train_test_files(self, df):
+        """Split dataframe into train and test to write it in order to read it with the transformer
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            Dataframe we want to split
+
+        Returns
+        -------
+        pandas.DataFrame
+            Two new dataframes got by splitting df
+        """
+        df = df["expose_sommaire"] if isinstance(df, pd.DataFrame) else df
+        shuffle_df = df.sample(frac=1)
+        train_size = int(0.8 * len(df))
+        X_train = shuffle_df[:train_size]
+        X_test = shuffle_df[train_size:]
+        X_train.to_csv(os.path.join(stg.INTERIM_DIR, stg.CSV_DATA_TRAIN_LM), index=False)
+        X_test.to_csv(os.path.join(stg.INTERIM_DIR, stg.CSV_DATA_TEST_LM), index=False)
+        print(f"Files X_train & X_test wrote in {stg.INTERIM_DIR}")
+        return X_train, X_test
 
     def _download_data(self, zip_file):
         print("Downloading ZipFile... ")
@@ -153,5 +181,6 @@ class DatasetBuilder:
 
 
 if __name__ == "__main__":
-    test = DatasetBuilder(rewrite_csv=False)
-    test.data
+    test = DatasetBuilder()
+    df = test.data
+    test.create_train_test_files(df)
