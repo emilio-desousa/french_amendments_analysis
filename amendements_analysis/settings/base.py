@@ -20,7 +20,9 @@ URL_TO_DL_DATA = (
 )
 
 SENTENCE_EMBEDDINGS_FILENAME = "FinedTunedBert_fullDF.npy"
-
+UMAP_EMBEDDINGS_FILENAME = "umap_15_axis_BertFT_half.npy"
+CLUSTER_MODEL_FIT_FILENAME = '13clusters_50pcAmendements_finedtuned.sav'
+UMAP_MODEL_FIT_FILENAME = 'umap_model_50pc_FTcamembert_fit.sav'
 SOURCE_COLUMNS = [
     "amendement",
     "uid",
