@@ -21,6 +21,10 @@ scikit-learn-extra = "^0.1.0-beta.2"
 pyLDAvis = "^2.1.2"
 streamlit = "^0.72.0"
 numba = "0.48.0"
+torch = [
+    { url = "https://download.pytorch.org/whl/cu110/torch-1.7.0%2Bcu110-cp38-cp38-linux_x86_64.whl", markers = "platform_version == '#62-Ubuntu SMP Mon Nov 23 19:20:19 UTC 2020'"},
+    { version = "^1.7.1", markers = "platform_version != '#62-Ubuntu SMP Mon Nov 23 19:20:19 UTC 2020'" }
+]
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.19.0"
