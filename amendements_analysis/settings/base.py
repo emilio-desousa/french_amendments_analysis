@@ -24,6 +24,10 @@ URL_TO_DL_DATA = (
     "http://data.assemblee-nationale.fr/static/openData/repository/15/loi/amendements_legis/Amendements_XV.json.zip"
 )
 
+SENTENCE_EMBEDDINGS_FILENAME = "FinedTunedBert_fullDF.npy"
+UMAP_EMBEDDINGS_FILENAME = "umap_15_axis_BertFT_half.npy"
+CLUSTER_MODEL_FIT_FILENAME = "13clusters_50pcAmendements_finedtuned.sav"
+UMAP_MODEL_FIT_FILENAME = "umap_model_50pc_FTcamembert_fit.sav"
 SOURCE_COLUMNS = [
     "amendement",
     "uid",
@@ -73,8 +77,36 @@ TOPICS_DICT = {
     "6": "Politique Cohésion Territoriale (National)",
     "7": "Immobilier & Urbanisme",
     "8": "Alimentaire, Elevage, Agriculture & traitement des Déchets",
-    "9": "Rectification / contestations de lois (vote, scrutin)",
-    "10": "Service Publique (éducations, transports publics ...)",
+    "9": "Rectification / Contestation de lois (vote, scrutin)",
+    "10": "Service Publique (éducation, transports publics, radio ...)",
     "11": "Financements des Secteurs",
     "12": "Gestion Budgétaire",
 }
+
+STOPWORDS_TO_ADD = [
+    "amendement",
+    "article",
+    "cette",
+    "cet",
+    "cela",
+    "leurs",
+    "plus",
+    "afin",
+    "donc",
+    "ores",
+    "etre",
+    "nous",
+    "socialistes",
+]
+
+PARAMETERS_CV = {
+    "strip_accents": "unicode",
+    "lowercase": True,
+    "min_df": 0.01,
+    "max_df": 0.50,
+    "ngram_range": (1, 2),
+    "token_pattern": r"\b[^\d\W]+\b",
+}
+
+
+PARAMETERS_LDA = {"n_components": 10, "doc_topic_prior": 0.7, "topic_word_prior": 0.5, "verbose": 1}
