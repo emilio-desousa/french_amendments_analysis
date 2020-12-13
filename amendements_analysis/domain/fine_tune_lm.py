@@ -1,11 +1,12 @@
 from simpletransformers.language_modeling import LanguageModelingModel, LanguageModelingArgs
 import os
+import amendements_analysis.settings.base as stg
 
 
 class LM_trainer:
     def __init__(self):
-        self.train_file = os.path.join(os.getcwd(), "train_dataset.csv")
-        self.test_file = os.path.join(os.getcwd(), "test_dataset.csv")
+        self.train_file = os.path.join(stg.INTERIM_DIR, "train_dataset.csv")
+        self.test_file = os.path.join(stg.INTERIM_DIR, "test_dataset.csv")
 
     def train(self):
         model_args = self._lm_args()
