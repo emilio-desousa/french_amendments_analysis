@@ -3,17 +3,9 @@ import os
 RANDOM_STATE = 42
 
 
-def get_stopwords():
-    sw_file = open(os.path.join("stopwords.txt"), "r")
-    stopwords = [(line.strip()).split() for line in sw_file]
-    sw_file.close()
-    return stopwords
-
-
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
 DATA_DIR = os.path.join(REPO_DIR, "data")
-
 RAW_DATA_DIR = os.path.join(DATA_DIR, "raw")
 PROCESSED_DATA_DIR = os.path.join(DATA_DIR, "processed")
 INTERIM_DIR = os.path.join(DATA_DIR, "interim")
@@ -52,6 +44,14 @@ SOURCE_COLUMNS = [
     "texteLegislatifRef",
     "corps",
 ]
+
+
+def get_stopwords():
+    stopwords = [
+        line.rstrip("\n")
+        for line in open(os.path.join(os.path.dirname(__file__), "stopwords.txt"))
+    ]
+    return stopwords
 
 
 COLUMNS = [
