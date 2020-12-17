@@ -1,10 +1,14 @@
 import os
-from nltk.corpus import stopwords
-import nltk
 
-nltk.download("stopwords")
-STOPWORDS_LIST = stopwords.words("french")
 RANDOM_STATE = 42
+
+
+def get_stopwords():
+    sw_file = open(os.path.join("stopwords.txt"), "r")
+    stopwords = [(line.strip()).split() for line in sw_file]
+    sw_file.close()
+    return stopwords
+
 
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
@@ -69,7 +73,7 @@ TOPIC = "Topic"
 DATASET_FILE_FORMAT = "csv"
 PARAMS_CV = {
     "strip_accents": "unicode",
-    "stop_words": STOPWORDS_LIST,
+    "stop_words": get_stopwords(),
     "max_df": 0.9,
     "min_df": 0.01,
     "ngram_range": (1, 2),

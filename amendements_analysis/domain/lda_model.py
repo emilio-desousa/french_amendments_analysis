@@ -12,7 +12,6 @@ import pyLDAvis
 import pickle
 
 
-
 class LatentDirichletAllocationModel:
     """
     Performs a Latent Dirichlet model to a list of amendments
@@ -20,7 +19,7 @@ class LatentDirichletAllocationModel:
     Attributes
     ----------
     amendments_list: list
-    
+
     Properties
     ----------
     lda_model: sklearn.decomposition.LatentDirichletAllocation
@@ -42,9 +41,11 @@ class LatentDirichletAllocationModel:
         lda_model: sklearn.decomposition.LatentDirichletAllocation
         """
         tf, processed_amendments_list = self._data_preparation()
-        lda = LatentDirichletAllocation(**stg.PARAMETERS_LDA).fit(processed_amendments_list)
+        lda = LatentDirichletAllocation(**stg.PARAMETERS_LDA).fit(
+            processed_amendments_list
+        )
         return lda, tf, processed_amendments_list
-    
+
     def _data_preparation(self):
         stopwords_list = self._set_stopwords_list()
         tf = CountVectorizer(**stg.PARAMETERS_CV, stop_words=stopwords_list)
@@ -52,12 +53,15 @@ class LatentDirichletAllocationModel:
         return tf, processed_amendments_list
 
     def _set_stopwords_list(self):
-        stopwords_list = stopwords.words("french")
+        stopwords_list = stg.get_stopwords()
         stopwords_list = self._clean_stopwords_list(stopwords_list=stopwords_list)
         return stopwords_list
 
     def _clean_stopwords_list(self, stopwords_list):
-        cleaned_stopwords_list = [word.encode('ascii', errors='ignore').decode('utf8') for word in stopwords_list]
+        cleaned_stopwords_list = [
+            word.encode("ascii", errors="ignore").decode("utf8")
+            for word in stopwords_list
+        ]
         cleaned_stopwords_list = cleaned_stopwords_list.extend(stg.STOPWORDS_TO_ADD)
         return cleaned_stopwords_list
 
@@ -65,6 +69,10 @@ class LatentDirichletAllocationModel:
 if __name__ == "__main__":
     df = DatasetBuilder().data
     amendments_list = DatasetCleaner(df, partition=10).sentences
-    lda, tf, processed_amendments_list = LatentDirichletAllocationModel(amendments_list).lda_model
-    vis = pyLDAvis.sklearn.prepare(lda, processed_amendments_list, tf, mds='tsne', R=10, sort_topics=True)
-    pickle.dump(vis, open( "viz.html", "wb"))
+    lda, tf, processed_amendments_list = LatentDirichletAllocationModel(
+        amendments_list
+    ).lda_model
+    vis = pyLDAvis.sklearn.prepare(
+        lda, processed_amendments_list, tf, mds="tsne", R=10, sort_topics=True
+    )
+    pickle.dump(vis, open("viz.html", "wb"))
