@@ -38,7 +38,7 @@ class Model_Publisher:
         else:
             self.repo = Repo(stg.CUSTOM_MODEL_REPO_DIR)
         # self.repo.git.execute(["git", "lfs", "install"])
-        self.repo.git.checkout("-b", "test")
+        self.repo.git.checkout("model1")
 
     def push_model(self):
         """Push the trained model in the remote git repository
