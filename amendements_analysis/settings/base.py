@@ -17,8 +17,19 @@ JSON_DIR = os.path.join(RAW_DATA_DIR, "json/")
 
 RES_DIR = os.path.join(REPO_DIR, "results/")
 MODEL_DIR = os.path.join(RES_DIR, "models/")
+TMP_MODEL_DIR = os.path.join(MODEL_DIR, "tmp_model/")
+CUSTOM_MODEL_REPO_DIR = os.path.join(MODEL_DIR, "camembert_aux_amandes/")
+MODEL_REPO_URL = (
+    "https://fenrhjen:CamembertPublic01_@huggingface.co/fenrhjen/camembert_aux_amandes/"
+)
 
-
+NEEDED_FILES_MODEL = [
+    "config.json",
+    "pytorch_model.bin",
+    "special_tokens_map.json",
+    "tokenizer_config.json",
+    "sentencepiece.bpe.model",
+]
 CSV_DATA_TRAIN_LM = "train_dataset_lm.csv"
 CSV_DATA_TEST_LM = "test_dataset_lm.csv"
 CSV_DATA_SPLITTED_FILENAME = "amendements_splitted.csv"
@@ -29,12 +40,14 @@ SENTENCE_EMBEDDINGS_FILENAME = "FinedTunedBert_fullDF.npy"
 UMAP_EMBEDDINGS_FILENAME = "umap_15_axis_BertFT_half.npy"
 CLUSTER_MODEL_FIT_FILENAME = "13clusters_50pcAmendements_finedtuned.sav"
 UMAP_MODEL_FIT_FILENAME = "umap_model_50pc_FTcamembert_fit.sav"
+
 SOURCE_COLUMNS = [
     "amendement",
     "uid",
     "texteLegislatifRef",
     "corps",
 ]
+
 
 COLUMNS = [
     "uid",

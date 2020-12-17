@@ -155,10 +155,8 @@ class DatasetBuilder:
     def _get_data_from_all_jsons(self):
         files = glob.glob(os.path.join(stg.JSON_DIR, "**/**/*.json"))
         amendements = []
-        index = 0
         for file in tqdm(files, total=len(files)):
             with open(file) as f:
-                index = index + 1
                 json_file = json.load(f)
                 amendements.append(
                     self._get_amendement_from_json(json_file, self.is_split_sentence)

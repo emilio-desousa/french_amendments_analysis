@@ -18,7 +18,7 @@ class LM_Trainer:
         )
         self.model = CamembertForMaskedLM.from_pretrained("camembert-base")
         self.training_args = TrainingArguments(
-            output_dir=stg.MODEL_DIR,
+            output_dir=stg.TMP_MODEL_DIR,
             overwrite_output_dir=True,
             # num_train_epochs=3,
             # per_device_train_batch_size=16,
