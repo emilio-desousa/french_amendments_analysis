@@ -100,7 +100,7 @@ class TextEncoder():
             elif (i == number_sentences):
                 pass
             else :
-                batch = sentences[i:]
+                batch = self.sentences[i:]
                 encoded_input = self.get_batch_sentence_tokens(batch, tokenizer)
             if torch.cuda.is_available() == True :
                 encoded_input.to(device)
