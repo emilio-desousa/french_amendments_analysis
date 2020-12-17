@@ -6,7 +6,6 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
-from nltk.corpus import stopwords
 import pyLDAvis.sklearn
 import pyLDAvis
 import pickle
