@@ -35,7 +35,7 @@ REGULAR_CAMEMBERT = "camembert-base"
 FINED_TUNED_CAMEMBERT = "fenrhjen/camembert_aux_amandes"
 SENTENCE_EMBEDDINGS_FILENAME = "FinedTunedBert_fullDF.npy"
 UMAP_EMBEDDINGS_FILENAME = "umap_15_axis_BertFT_half.npy"
-CLUSTER_MODEL_FIT_FILENAME = "13clusters_50pcAmendements_finedtuned.sav"
+CLUSTER_MODEL_FIT_FILENAME = "13clusters_50pcAmendements_finedtuned_P4.sav"
 UMAP_MODEL_FIT_FILENAME = "umap_model_50pc_FTcamembert_fit.sav"
 
 SOURCE_COLUMNS = [
