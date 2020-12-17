@@ -69,6 +69,7 @@ class TextCleaner():
 
     @staticmethod  
     def lemmatizer(text):
+
       nlp = fr_core_news_md.load(disable=['ner', 'parser'])
       nlp.add_pipe(nlp.create_pipe('sentencizer'))
       doc = nlp(text)

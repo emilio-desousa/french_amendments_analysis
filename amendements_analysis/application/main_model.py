@@ -9,14 +9,14 @@ import amendements_analysis.domain.topic_predicter as topic_predicter
 
 print('=============Preparing download of data...==============')
 
-builder = build_data.DatasetBuilder(is_split_sentence=False, rewrite_csv=False)
+builder = build_data.DatasetBuilder(is_split_sentence=False, rewrite_csv=False, get_only_amendments=False)
 df = builder.data
 print('===========Dataset is loaded and ready to be used================')
 
 cleaner = encode.DatasetCleaner(df, partition = 2)
 sentences = cleaner.sentences
 df_bert = cleaner.df_bert
-encoder = encode.TextEncoder(sentences, finetuned_bert = True, batch_size=16)
+encoder = encode.TextEncoder(sentences, finetuned_bert = True, batch_size=512)
 sentence_embeddings = encoder.sentence_embeddings
 print('===========Sentences of the dataset have been encoded according to camemBERT================')
 
@@ -31,13 +31,14 @@ print('===========dataframe used for cluster is cleaned & lemmatized to find imp
 word_finder = topic_finder.TopicWordsFinder(df_cleaned)
 top_n_words, topic_sizes = word_finder.words_per_topic
 for i in range(0,(len(topic_sizes))):
-    print(i, top_n_wors[i][:10])
+    print(i, top_n_words[i][:10])
 print(topic_sizes.head(13))
 print('===========From topic top words, decide to attribute a topic for each topic number================')
 
 amendement = ['Il faut absolument séparer le corps médical des docteurs avec le corps des infirmers pour garantir\
                la stabilité de notre régime de santé']
-sentence_embedding = encoder(amendement)
+encoder_predict = encode.TextEncoder(amendement, finetuned_bert = True, batch_size=1)
+sentence_embedding = encoder_predict.sentence_embeddings
 prediction = topic_predicter.topic_predicter(sentence_embedding, umap_model, cluster).predicted_topic
 print('prediction is : ', prediction)
-print('corresponding to these words : ', top_n_wors[i][:10])
+print('corresponding to these words : ', top_n_words[i][:10])

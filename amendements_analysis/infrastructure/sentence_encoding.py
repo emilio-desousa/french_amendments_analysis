@@ -89,6 +89,7 @@ class TextEncoder():
             model = CamembertModel.from_pretrained(stg.FINED_TUNED_CAMEMBERT)
         if torch.cuda.is_available() == True :
             print('====== Cuda is Available, GPU will be used for this task ======')
+            torch.cuda.empty_cache()
             model.cuda()
             device = torch.device("cuda")
         embedding_all_text=[]
@@ -104,10 +105,13 @@ class TextEncoder():
                 encoded_input = self.get_batch_sentence_tokens(batch, tokenizer)
             if torch.cuda.is_available() == True :
                 encoded_input.to(device)
-            model_output = model(**encoded_input)
+            with torch.no_grad():
+                model_output = model(**encoded_input)
             sentence_embeddings_tensor = self.mean_pooling(model_output, encoded_input['attention_mask'])
             embedding_all_text.append(sentence_embeddings_tensor) 
             if torch.cuda.is_available() == True:
+                del encoded_input
+                del sentence_embeddings_tensor
                 torch.cuda.empty_cache()
         sentence_embeddings = self.torch_to_array(embedding_all_text)
         return sentence_embeddings 
