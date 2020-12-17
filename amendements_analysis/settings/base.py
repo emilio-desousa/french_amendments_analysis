@@ -35,7 +35,8 @@ CSV_DATA_TEST_LM = "test_dataset_lm.csv"
 CSV_DATA_SPLITTED_FILENAME = "amendements_splitted.csv"
 ZIP_FILE_NAME = "Amendements_XV.json.zip"
 URL_TO_DL_DATA = "http://data.assemblee-nationale.fr/static/openData/repository/15/loi/amendements_legis/Amendements_XV.json.zip"
-
+REGULAR_CAMEMBERT = "camembert-base"
+FINED_TUNED_CAMEMBERT = "fenrhjen/camembert_aux_amandes"
 SENTENCE_EMBEDDINGS_FILENAME = "FinedTunedBert_fullDF.npy"
 UMAP_EMBEDDINGS_FILENAME = "umap_15_axis_BertFT_half.npy"
 CLUSTER_MODEL_FIT_FILENAME = "13clusters_50pcAmendements_finedtuned.sav"
@@ -122,7 +123,6 @@ PARAMETERS_CV = {
     "ngram_range": (1, 2),
     "token_pattern": r"\b[^\d\W]+\b",
 }
-
 
 PARAMETERS_LDA = {
     "n_components": 10,
