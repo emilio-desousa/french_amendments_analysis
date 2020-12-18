@@ -3,15 +3,19 @@ image: python:3.8
 stages:
   - test
 
-
 before_script:
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)
   - pip install poetry
   - poetry install
 
 Unit Tests:
   stage: test
   script:
-    - poetry run pytest
+    - poetry run pytest 
+
+  only:
+    - master
+    - develop
 
 
 
