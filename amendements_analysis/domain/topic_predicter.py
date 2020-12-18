@@ -35,8 +35,9 @@ class topic_predicter():
     def predicted_topic(self):
         umap_embedding = self.umap_model_fit.transform(self.sentence_embedding.reshape(1, -1))
         predict = self.cluster_model_fit.predict(umap_embedding)
-        prediction = str(predict[0]) + ' ' + stg.TOPICS_DICT[str(predict[0])]
-        return prediction
+        prediction_number = str(predict[0])
+        prediction_name = stg.TOPICS_DICT[str(predict[0])]
+        return prediction_number, prediction_name
 
 if "__main__" == __name__ :
     sentence_embeddings = np.load(os.path.join(stg.DATA_DIR, stg.SENTENCE_EMBEDDINGS_FILENAME))

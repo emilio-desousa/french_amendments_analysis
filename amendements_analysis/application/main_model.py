@@ -6,17 +6,20 @@ import amendements_analysis.infrastructure.sentence_encoding as encode
 import amendements_analysis.domain.clusters_finder as cluster
 import amendements_analysis.domain.topic_finder as topic_finder
 import amendements_analysis.domain.topic_predicter as topic_predicter
+import pickle 
+import joblib
+import os 
 
 print('=============Preparing download of data...==============')
 
 builder = build_data.DatasetBuilder(is_split_sentence=False, rewrite_csv=False, get_only_amendments=False)
 df = builder.data
 print('===========Dataset is loaded and ready to be used================')
-
-cleaner = encode.DatasetCleaner(df, partition = 2)
+print('===========Dataset will be now encoded by camemBERT model================')
+cleaner = encode.DatasetCleaner(df, partition = 500)
 sentences = cleaner.sentences
 df_bert = cleaner.df_bert
-encoder = encode.TextEncoder(sentences, finetuned_bert = True, batch_size=512)
+encoder = encode.TextEncoder(sentences, finetuned_bert = True, batch_size=4)
 sentence_embeddings = encoder.sentence_embeddings
 print('===========Sentences of the dataset have been encoded according to camemBERT================')
 
@@ -35,10 +38,7 @@ for i in range(0,(len(topic_sizes))):
 print(topic_sizes.head(13))
 print('===========From topic top words, decide to attribute a topic for each topic number================')
 
-amendement = ['Il faut absolument séparer le corps médical des docteurs avec le corps des infirmers pour garantir\
-               la stabilité de notre régime de santé']
-encoder_predict = encode.TextEncoder(amendement, finetuned_bert = True, batch_size=1)
-sentence_embedding = encoder_predict.sentence_embeddings
-prediction = topic_predicter.topic_predicter(sentence_embedding, umap_model, cluster).predicted_topic
-print('prediction is : ', prediction)
-print('corresponding to these words : ', top_n_words[i][:10])
+joblib.dump(umap_model, os.path.join(stg.DATA_DIR, stg.UMAP_MODEL_FIT_FILENAME_EXT))
+pickle.dump(cluster, open(os.path.join(stg.DATA_DIR, stg.CLUSTER_MODEL_FIT_FILENAME_EXT), 'wb'))
+
+print('===========Models are pickled or Joblibed================')
