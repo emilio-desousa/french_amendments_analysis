@@ -67,4 +67,4 @@ if __name__ == "__main__":
     amendments_list = DatasetCleaner(df, partition=10).sentences
     lda, tf, processed_amendments_list = LatentDirichletAllocationModel(amendments_list).lda_model
     vis = pyLDAvis.sklearn.prepare(lda, processed_amendments_list, tf, mds='tsne', R=10, sort_topics=True)
-    pickle.dump(vis, open( "viz.html", "wb"))
+    pyLDAvis.save_htmlv(vis, stg.DATA_DIR)

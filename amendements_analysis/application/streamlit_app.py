@@ -22,11 +22,9 @@ if method_of_classification == "UMAP":
     amendement = st.text_input("Amendement à classifier")
     submit = st.button('Prediction')
     if submit:
-        amendement = np.array([amendement])
-        amendement = amendement.tolist()
-        st.write(amendement)
+        amendement = [amendement]
         sentence_embeddings = TextEncoder(amendement, finetuned_bert = True, batch_size=1).sentence_embeddings
-        prediction = topic_predicter(amendement, umap_model_fit, cluster_model_fit).predicted_topic
+        prediction = topic_predicter(sentence_embeddings, umap_model_fit, cluster_model_fit).predicted_topic
         st.write('Le sujet identifié est : ', prediction)
 elif method_of_classification == "LDA":
     # Loading of the LDA model
