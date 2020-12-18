@@ -1,8 +1,12 @@
 [tool.poetry]
-name = "P2"
+name = "amendements_analysis"
 version = "0.1.0"
 description = ""
 authors = ["CET"]
+
+
+[tool.poetry.scripts]
+train_lm = "amendements_analysis.application.main_lm_model:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -30,10 +34,13 @@ GitPython = "^3.1.11"
 torch = "1.7.0"
 >>>>>>> 7fa7d11190dabe105f7b5e08023f051c5bc3083e
 
+
 [tool.poetry.dev-dependencies]
 ipython = "^7.19.0"
 black = {version = "^20.8b1", allow-prereleases = true}
 flake8 = "^3.8.4"
+pytest = "^6.2.1"
+
 [tool.poetry.dependencies.fr_core_news_md]
 url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-2.3.0/fr_core_news_md-2.3.0.tar.gz"
 
