@@ -4,7 +4,6 @@
 .git
 
 #Ignore the below directories
-data/
 .vscode/
 
 cache_dir/
