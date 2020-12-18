@@ -13,9 +13,7 @@ Unit Tests:
   script:
     - poetry run pytest 
 
-  only:
-    - master
-    - develop
+
 
 
 
