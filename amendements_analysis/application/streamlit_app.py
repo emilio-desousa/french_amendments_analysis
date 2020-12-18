@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from streamlit.components.v1 import html
 import umap.umap_ as umap
 import pickle
+import joblib
 import os
 import numpy as np
 
@@ -18,8 +19,9 @@ method_of_classification = st.sidebar.selectbox("Sélectionner la méthode de cl
 # Parameters settings
 if method_of_classification == "UMAP":
     # Loading the UMAP model
+    st.markdown("**Classification UMAP**")
     cluster_model_fit = pickle.load(open(os.path.join(stg.DATA_DIR, stg.CLUSTER_MODEL_FIT_FILENAME),"rb"))
-    umap_model_fit = pickle.load(open(os.path.join(stg.DATA_DIR,'umap_model_fitted.sav'), 'rb'))
+    umap_model_fit = joblib.load(os.path.join(stg.DATA_DIR,'umap_model_fitted.sav'))
     amendement = st.text_input("Amendement à classifier")
     submit = st.button('Prediction')
     if submit:
@@ -28,6 +30,7 @@ if method_of_classification == "UMAP":
         prediction = topic_predicter(sentence_embeddings, umap_model_fit, cluster_model_fit).predicted_topic
         st.write('Le sujet identifié est : ', prediction)
 elif method_of_classification == "LDA":
+    st.markdown("**Latent dirichlet allocation**")
     # Loading of the LDA model
     with open(os.path.join(stg.DATA_DIR, "pyLDAvis.html"), 'r') as f:
         html_string = f.read()
