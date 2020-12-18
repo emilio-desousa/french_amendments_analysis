@@ -4,4 +4,9 @@
 .git
 
 #Ignore the below directories
-data/
+.vscode/
+dist/
+cache_dir/
+poetry.lock
+*__pycache__/
+.ipynb_checkpoints/
