@@ -14,23 +14,23 @@ class TextCleaner:
     """
     Get amendments df and perform pre processing compatible with Topics words finder
     This includes :
-        - remove accent
-        - lemmatize
-        - specific regex flag for specific terms
 
-    Attributes
-    ----------
-    df: pandas.DataFrame
-    ----------
+    - remove accent
+
+    - lemmatize
+
+    - specific regex flag for specific terms
+
+    Attributes:
+        df pandas.DataFrame: dataframe to clean
     Return:
-    df_cleaned: pandas.DataFrame
+        pandas.DataFrame: df_cleaned
     """
 
     def __init__(self, flag_dict):
         """Class initilization
-        Parameters
-        ----------
-        flag_dict: dict of regex to replace by flag
+        Parameters:
+            flag_dict dict: dict of regex to replace by flag
 
         """
         self.flag_dict = flag_dict
