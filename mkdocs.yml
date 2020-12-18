@@ -1,0 +1,20 @@
+site_name: Amendments analysis docs
+use_directory_urls: false
+theme:
+  name: material
+plugins:
+  - search
+  - mkdocstrings:
+      watch:
+        - amendements_analysis/
+
+nav:
+  - "Index": index.md
+  - Infra:
+      - "Dataset Builder": infrastructure/building_dataset-reference.md
+  - Domain:
+      - "Run Training Language model": domain/lm_training-reference.md
+      - "LDA Model": domain/lda_model-reference.md
+      - "Topic Finder": domain/topic_finder-reference.md
+      - "Cluster Finder": domain/clusters_finder-reference.md
+      - "Topic Predicter": domain/topic_predicter-reference.md

@@ -12,7 +12,10 @@ from transformers import (
 
 
 class LM_Trainer:
+    """LM_Trainer Train the language model of camembert model from huggingface"""
+
     def __init__(self):
+        """Class initialisation"""
         self.tokenizer = CamembertTokenizerFast.from_pretrained(
             "camembert-base", max_len=512
         )
@@ -54,6 +57,12 @@ class LM_Trainer:
         )
 
     def train(self):
+        """
+        Train language model of camembert-base from **huggingface**
+
+        Returns:
+               transformers.model: Trained Model
+        """
         datasets, column_names = self._create_datasets()
         tokenized_datasets = datasets.map(self._tokenize_function, batched=True)
         data_collator = DataCollatorForLanguageModeling(
@@ -68,6 +77,7 @@ class LM_Trainer:
             data_collator=data_collator,
         )
         lm_trainer.train()
+        return lm_trainer
 
 
 if __name__ == "__main__":

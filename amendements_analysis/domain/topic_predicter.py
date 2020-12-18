@@ -10,24 +10,19 @@ import joblib
 class topic_predicter:
     """
     Get amendement and attribute a topic.
-    ------------
-    Attributes
-    ----------
-    df: pandas DataFrame with
-    umap_model = model to reduce dimension
-    kmenoid_model_fitted: model
-    ----------
-    Return:
-    predicted_topic : string with topic prediction
+
+    Attributes:
+        df pandas.DataFrame: pandas DataFrame with
+        umap_model umap.model : model to reduce dimension
+        kmenoid_model_fitted sklearn.model : model
     """
 
     def __init__(self, sentence_embedding, umap_model_fit, cluster_model_fit):
         """Class initilization
-        Parameters
-        ----------
-        sentence_embedding: numpy array of previous Bert embedding
-        umap_model_fit = fit model for umap dimension reduction
-        cluster_model_fit = fit model for clustering prediction
+        Parameters:
+            sentence_embedding numpy.Array: numpy array of previous Bert embedding
+            umap_model_fit umap.model : fit model for umap dimension reduction
+            cluster_model_fit cluster.model : fit model for clustering prediction
         """
         self.sentence_embedding = sentence_embedding
         self.cluster_model_fit = cluster_model_fit
@@ -35,10 +30,11 @@ class topic_predicter:
 
     @property
     def predicted_topic(self):
-        # umap_embedding = self.umap_model_fit.transform(self.sentence_embedding.reshape(1, -1))
-        # print(self.sentence_embedding)
+        """Property to get the predicted topic
 
-        print(self.sentence_embedding)
+        Returns:
+            int, str: predicted number of topic and topic name
+        """
         umap_embedding = self.umap_model_fit.transform(
             self.sentence_embedding.reshape(1, -1)
         )

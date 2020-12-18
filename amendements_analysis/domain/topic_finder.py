@@ -14,23 +14,23 @@ class TextCleaner:
     """
     Get amendments df and perform pre processing compatible with Topics words finder
     This includes :
-        - remove accent
-        - lemmatize
-        - specific regex flag for specific terms
 
-    Attributes
-    ----------
-    df: pandas.DataFrame
-    ----------
+    - remove accent
+
+    - lemmatize
+
+    - specific regex flag for specific terms
+
+    Attributes:
+        df pandas.DataFrame: dataframe to clean
     Return:
-    df_cleaned: pandas.DataFrame
+        pandas.DataFrame: df_cleaned
     """
 
     def __init__(self, flag_dict):
         """Class initilization
-        Parameters
-        ----------
-        flag_dict: dict of regex to replace by flag
+        Parameters:
+            flag_dict dict: dict of regex to replace by flag
 
         """
         self.flag_dict = flag_dict
@@ -38,10 +38,15 @@ class TextCleaner:
     def fit(self, df):
         return self
 
-    ##
-    ## [TODO] Create Batch for lem
-    ##
     def transform(self, df):
+        """Clean amendments datasets
+
+        Args:
+            df (pandas.DataFrame): Dataframe with amendments to clean
+
+        Returns:
+            pandas.DataFrame: Cleaned Dataframe
+        """
         df_cleaned = df.copy()
         df_cleaned = (
             df_cleaned["expose_sommaire"]
@@ -55,11 +60,19 @@ class TextCleaner:
         return df_cleaned
 
     @staticmethod
-    def lowercase(text):
-        return text.lower()
-
-    @staticmethod
     def remove_accents(text, method="unicodedata"):
+        """Remove accents from text
+
+        Args:
+            text (str): text to clean
+            method (str, optional): method to remove accents. Defaults to "unicodedata".
+
+        Raises:
+            ValueError: Method not supported
+
+        Returns:
+            str: string without accents
+        """
 
         if method == "unidecode":
             return unidecode.unidecode(text)
@@ -77,6 +90,15 @@ class TextCleaner:
 
     @staticmethod
     def flag_text(text, flag_dict):
+        """Use Regex to sub on text
+
+        Args:
+            text (str): Text to check
+            flag_dict (str): regex expression
+
+        Returns:
+            str: texte after regex
+        """
         for regex, flag in flag_dict.items():
             text = re.sub(regex, flag, str(text))
 
@@ -84,6 +106,14 @@ class TextCleaner:
 
     @staticmethod
     def lemmatizer(df):
+        """Lemmatize dataframe Series
+
+        Args:
+            df (Series): list to lemmatize
+
+        Returns:
+            Series: lemmatized list
+        """
         df_tmp = []
         nlp = fr_core_news_md.load(disable=["ner", "parser"])
         nlp.add_pipe(nlp.create_pipe("sentencizer"))
@@ -101,39 +131,47 @@ class TopicWordsFinder:
     """
     Get amendements df with labels from model and perform clustering words recognition
 
-    Attributes
-    ----------
-    df: pandas.DataFrame
-    ----------
-    Return:
-
-    words_per_topic: Array of top words with tf-idf score per topic
-    topic_size: pandas.DataFrame
+    Attributes:
+        df (pandas.DataFrame): dataframe
     """
 
     def __init__(self, df):
         """Class initilization
-        Parameters
-        ----------
-        df: cleaned and lemmatized dataframe with topic already assigned from previous clusterization
+
+        Args:
+            df (pandas.DataFrame): cleaned and lemmatized dataframe with topic already assigned from previous clusterization
         """
 
         self.df = df
 
     @property
     def words_per_topic(self):
-        df_topic = self.get_df_topic(self.df)
-        count_vectorizer = self.get_countvectorizer(df_topic[stg.AMENDEMENT])
-        c_tf_idf = self.get_custom_tfidf(
+        """Property to get the numbers of words per topic
+
+        Returns:
+            list: top of n words
+            list: size of topics
+        """
+        df_topic = self._get_df_topic(self.df)
+        count_vectorizer = self._get_countvectorizer(df_topic[stg.AMENDEMENT])
+        c_tf_idf = self._get_custom_tfidf(
             df_topic[stg.AMENDEMENT], len(self.df), count_vectorizer
         )
-        top_n_words = self.extract_top_n_words_per_topic(
+        top_n_words = self._extract_top_n_words_per_topic(
             c_tf_idf, count_vectorizer, df_topic, n=20
         )
-        topic_sizes = self.extract_topic_sizes(self.df)
+        topic_sizes = self._extract_topic_sizes(self.df)
         return top_n_words, topic_sizes
 
-    def get_df_topic(self, df):
+    def _get_df_topic(self, df):
+        """get topics of dataframe
+
+        Args:
+            df (pandas.DataFrame): DataFrame to get the topics
+
+        Returns:
+            pandas.DataFrame: DataFrame with topics
+        """
         df_topic = df.copy()
         df_topic[stg.AMENDEMENT] = df_topic[stg.AMENDEMENT].apply(lambda x: str(x))
         df_topic = (
@@ -141,12 +179,12 @@ class TopicWordsFinder:
         )
         return df_topic
 
-    def get_countvectorizer(self, doc):
+    def _get_countvectorizer(self, doc):
         count_vectorizer = CountVectorizer(**stg.PARAMS_CV)
         count_vectorizer.fit(doc)
         return count_vectorizer
 
-    def get_custom_tfidf(self, doc, m, count_vectorizer):
+    def _get_custom_tfidf(self, doc, m, count_vectorizer):
         topics = count_vectorizer.transform(doc).toarray()
         words = topics.sum(axis=1)
         tf = np.divide(topics.T, words)
@@ -155,7 +193,7 @@ class TopicWordsFinder:
         tf_idf = np.multiply(tf, idf)
         return tf_idf
 
-    def extract_top_n_words_per_topic(self, tf_idf, count_vectorizer, df_topic, n):
+    def _extract_top_n_words_per_topic(self, tf_idf, count_vectorizer, df_topic, n):
         words = count_vectorizer.get_feature_names()
         labels = list(df_topic[stg.TOPIC])
         tf_idf_transposed = tf_idf.T
@@ -166,7 +204,7 @@ class TopicWordsFinder:
         }
         return top_n_words
 
-    def extract_topic_sizes(self, df):
+    def _extract_topic_sizes(self, df):
         topic_sizes = (
             df.groupby([stg.TOPIC], sort=True)[stg.AMENDEMENT]
             .count()
