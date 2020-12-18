@@ -5,7 +5,7 @@
 
 #Ignore the below directories
 .vscode/
-
+dist/
 cache_dir/
 poetry.lock
 *__pycache__/
