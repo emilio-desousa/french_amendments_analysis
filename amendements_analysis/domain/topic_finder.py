@@ -48,15 +48,10 @@ class TextCleaner:
             pandas.DataFrame: Cleaned Dataframe
         """
         df_cleaned = df.copy()
-        df_cleaned = (
-            df_cleaned["expose_sommaire"]
-            if isinstance(df_cleaned, pd.DataFrame)
-            else df_cleaned
-        )
-        df_cleaned = df_cleaned.apply(lambda x: str(x))
-        df_cleaned = self.lemmatizer(df_cleaned)
-        # df_cleaned = df_cleaned.apply(self.lowercase)
-        df_cleaned = df_cleaned.apply(self.flag_text, args=(self.flag_dict,))
+        df_cleaned[stg.AMENDEMENT] = df_cleaned[stg.AMENDEMENT].apply(lambda x: str(x))
+        df_cleaned[stg.AMENDEMENT] = self.lemmatizer(df_cleaned[stg.AMENDEMENT])
+        # df_cleaned[stg.AMENDEMENT] = df_cleaned[stg.AMENDEMENT].apply(self.lowercase)
+        df_cleaned[stg.AMENDEMENT] = df_cleaned[stg.AMENDEMENT].apply(self.flag_text, args=(self.flag_dict,))
         return df_cleaned
 
     @staticmethod
@@ -124,8 +119,7 @@ class TextCleaner:
         # doc = nlp.pipe(text)
         # text_lemm = [token.lemma_ for token in doc]
         # text_lemm = " ".join(text_lemm)
-        return pd.DataFrame(df_tmp)[0]
-
+        return df_tmp
 
 class TopicWordsFinder:
     """

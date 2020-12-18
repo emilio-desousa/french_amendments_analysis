@@ -7,6 +7,8 @@ authors = ["CET"]
 
 [tool.poetry.scripts]
 train_lm = "amendements_analysis.application.main_lm_model:main"
+cluster_train = "amendements_analysis.application.main_model:main_model_train"
+cluster_predict = "amendements_analysis.application.main_model:main_model_predict"
 
 [tool.poetry.dependencies]
 python = "^3.8"
