@@ -43,6 +43,11 @@ class TextCleaner:
     ##
     def transform(self, df):
         df_cleaned = df.copy()
+        df_cleaned = (
+            df_cleaned["expose_sommaire"]
+            if isinstance(df_cleaned, pd.DataFrame)
+            else df_cleaned
+        )
         df_cleaned = df_cleaned.apply(lambda x: str(x))
         df_cleaned = self.lemmatizer(df_cleaned)
         # df_cleaned = df_cleaned.apply(self.lowercase)
