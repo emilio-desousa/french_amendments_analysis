@@ -11,6 +11,7 @@ import pickle
 import os
 import numpy as np
 
+
 # Selection of the method of classification
 method_of_classification = st.sidebar.selectbox("Sélectionner la méthode de classification", ("UMAP", "LDA"))
 
