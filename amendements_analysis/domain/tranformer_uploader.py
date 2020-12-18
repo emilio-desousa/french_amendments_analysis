@@ -16,19 +16,20 @@ class MyProgressPrinter(RemoteProgress):
     RemoteProgress : gitpython Object
         progress from git
     """
+
     def new_message_handler(self):
         def handler(line):
-            print(line.rstrip()) 
+            print(line.rstrip())
             return self._parse_progress_line(line.rstrip())
+
         return handler
 
 
 class Model_Publisher:
-    """ Publish the trained tranformer model from tmp_model dir
-    """
+    """Publish the trained tranformer model from tmp_model dir"""
+
     def __init__(self):
-        """Clone the tranformer Camembert_aux_amandes and create the Repo object from gitPython
-        """
+        """Clone the tranformer Camembert_aux_amandes and create the Repo object from gitPython"""
         if not os.path.exists(stg.CUSTOM_MODEL_REPO_DIR):
             self.repo = Repo.clone_from(
                 stg.MODEL_REPO_URL,
@@ -57,7 +58,7 @@ class Model_Publisher:
         origin = self.repo.remote()
         self.repo.create_head("test")
         origin.push("test", progress=MyProgressPrinter())
-    
+
     def _install_lfs(self):
         self.repo.git.execute(["git", "lfs", "install"])
         self.repo.git.execute(
@@ -66,9 +67,5 @@ class Model_Publisher:
         self.repo.git.execute(["git", "lfs", "fetch"])
         self.repo.git.execute(["git", "lfs", "track", "pytorch_model.bin"])
 
-        
 
 # repo = Repo(stg.MODEL_DIR)
-
-if __name__ == "__main__":
-    # Model_Publisher().push_model()
