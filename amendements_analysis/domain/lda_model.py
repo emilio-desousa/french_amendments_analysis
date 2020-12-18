@@ -15,29 +15,26 @@ class LatentDirichletAllocationModel:
     """
     Performs a Latent Dirichlet model to a list of amendments
 
-    Attributes
-    ----------
-    amendments_list: list
-
-    Properties
-    ----------
-    lda_model: sklearn.decomposition.LatentDirichletAllocation
+    Attributes:
+        amendments_list list: list of all amendments
     """
 
     def __init__(self, amendments_list):
-        """Class initilization
-        Parameters
-        ----------
-        amendments_list: list
+        """
+        Class initilization
+
+        Parameters:
+            amendments_list list: list of all amendments
         """
         self.amendments_list = amendments_list
 
     @property
     def lda_model(self):
-        """Property to perform the LDA
-        Returns
-        -------
-        lda_model: sklearn.decomposition.LatentDirichletAllocation
+        """
+        Property to perform the LDA
+
+        Returns:
+            lda_model sklearn.decomposition.LatentDirichletAllocation: Model of LDA
         """
         tf, processed_amendments_list = self._data_preparation()
         lda = LatentDirichletAllocation(**stg.PARAMETERS_LDA).fit(
