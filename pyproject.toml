@@ -1,8 +1,12 @@
 [tool.poetry]
-name = "P2"
+name = "amendements_analysis"
 version = "0.1.0"
 description = ""
 authors = ["CET"]
+
+
+[tool.poetry.scripts]
+train_lm = "amendements_analysis.application.main_lm_model:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
