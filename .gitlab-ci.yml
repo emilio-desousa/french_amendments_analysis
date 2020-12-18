@@ -1,0 +1,20 @@
+image: python:3.8
+
+stages:
+  - test
+
+
+before_script:
+  - pip install poetry
+  - poetry install
+
+Unit Tests:
+  stage: test
+  script:
+    - poetry run pytest
+
+
+
+
+
+
