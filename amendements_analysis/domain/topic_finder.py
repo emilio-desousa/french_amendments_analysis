@@ -49,7 +49,7 @@ class TextCleaner:
         """
         df_cleaned = df.copy()
         df_cleaned[stg.AMENDEMENT] = df_cleaned[stg.AMENDEMENT].apply(lambda x: str(x))
-        df_cleaned[stg.AMENDEMENT] = self.lemmatizer(df_cleaned[stg.AMENDEMENT])
+        # df_cleaned[stg.AMENDEMENT] = self.lemmatizer(df_cleaned[stg.AMENDEMENT])
         # df_cleaned[stg.AMENDEMENT] = df_cleaned[stg.AMENDEMENT].apply(self.lowercase)
         df_cleaned[stg.AMENDEMENT] = df_cleaned[stg.AMENDEMENT].apply(self.flag_text, args=(self.flag_dict,))
         return df_cleaned
@@ -72,16 +72,10 @@ class TextCleaner:
         if method == "unidecode":
             return unidecode.unidecode(text)
         elif method == "unicodedata":
-            utf8_str = (
-                unicodedata.normalize("NFKD", text)
-                .encode("ASCII", "ignore")
-                .decode("utf-8")
-            )
+            utf8_str = unicodedata.normalize("NFKD", text).encode("ASCII", "ignore").decode("utf-8")
             return utf8_str
         else:
-            raise ValueError(
-                "Possible values for method are 'unicodedata' or 'unidecode'"
-            )
+            raise ValueError("Possible values for method are 'unicodedata' or 'unidecode'")
 
     @staticmethod
     def flag_text(text, flag_dict):
@@ -121,6 +115,7 @@ class TextCleaner:
         # text_lemm = " ".join(text_lemm)
         return df_tmp
 
+
 class TopicWordsFinder:
     """
     Get amendements df with labels from model and perform clustering words recognition
@@ -148,12 +143,8 @@ class TopicWordsFinder:
         """
         df_topic = self._get_df_topic(self.df)
         count_vectorizer = self._get_countvectorizer(df_topic[stg.AMENDEMENT])
-        c_tf_idf = self._get_custom_tfidf(
-            df_topic[stg.AMENDEMENT], len(self.df), count_vectorizer
-        )
-        top_n_words = self._extract_top_n_words_per_topic(
-            c_tf_idf, count_vectorizer, df_topic, n=20
-        )
+        c_tf_idf = self._get_custom_tfidf(df_topic[stg.AMENDEMENT], len(self.df), count_vectorizer)
+        top_n_words = self._extract_top_n_words_per_topic(c_tf_idf, count_vectorizer, df_topic, n=20)
         topic_sizes = self._extract_topic_sizes(self.df)
         return top_n_words, topic_sizes
 
@@ -168,9 +159,7 @@ class TopicWordsFinder:
         """
         df_topic = df.copy()
         df_topic[stg.AMENDEMENT] = df_topic[stg.AMENDEMENT].apply(lambda x: str(x))
-        df_topic = (
-            df_topic.groupby([stg.TOPIC]).agg({stg.AMENDEMENT: " ".join}).reset_index()
-        )
+        df_topic = df_topic.groupby([stg.TOPIC]).agg({stg.AMENDEMENT: " ".join}).reset_index()
         return df_topic
 
     def _get_countvectorizer(self, doc):
@@ -193,8 +182,7 @@ class TopicWordsFinder:
         tf_idf_transposed = tf_idf.T
         indices = tf_idf_transposed.argsort()[:, -n:]
         top_n_words = {
-            label: [(words[j], tf_idf_transposed[i][j]) for j in indices[i]][::-1]
-            for i, label in enumerate(labels)
+            label: [(words[j], tf_idf_transposed[i][j]) for j in indices[i]][::-1] for i, label in enumerate(labels)
         }
         return top_n_words
 
