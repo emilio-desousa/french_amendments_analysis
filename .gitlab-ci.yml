@@ -12,6 +12,8 @@ Unit Tests:
   stage: test
   script:
     - poetry run pytest 
+  only:
+    - develop
 
 
 
