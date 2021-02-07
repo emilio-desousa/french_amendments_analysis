@@ -18,7 +18,7 @@ CUSTOM_MODEL_REPO_DIR = os.path.join(MODEL_DIR, "camembert_aux_amandes/")
 MODEL_REPO_URL = (
     "https://fenrhjen:CamembertPublic01_@huggingface.co/fenrhjen/camembert_aux_amandes/"
 )
-
+DF_CLEANED_LEMMA_PATH = 'df_amendement_cleaned_lemma.csv'
 NEEDED_FILES_MODEL = [
     "config.json",
     "pytorch_model.bin",
@@ -37,9 +37,9 @@ FINED_TUNED_CAMEMBERT = "fenrhjen/camembert_aux_amandes"
 SENTENCE_EMBEDDINGS_FILENAME = "FinedTunedBert_fullDF.npy"
 UMAP_EMBEDDINGS_FILENAME = "umap_15_axis_BertFT_half.npy"
 CLUSTER_MODEL_FIT_FILENAME = "cluster_model_fit"
-UMAP_MODEL_FIT_FILENAME = "umap_model__fit"
+UMAP_MODEL_FIT_FILENAME = "umap_model_fit"
 CLUSTER_MODEL_FIT_FILENAME_EXT = "cluster_model_fit.sav"
-UMAP_MODEL_FIT_FILENAME_EXT = "umap_model__fit.sav"
+UMAP_MODEL_FIT_FILENAME_EXT = "umap_model_fit.sav"
 LDA_MODEL_VIS_FILENAME = "pyLDAvis.html"
 
 SOURCE_COLUMNS = [
@@ -106,6 +106,7 @@ TOPICS_DICT = {
     "11": "Financements des Secteurs",
     "12": "Gestion Budgétaire",
 }
+TOPICS_DICT_CUSTOM = {}
 
 STOPWORDS_TO_ADD = [
     "amendement",
