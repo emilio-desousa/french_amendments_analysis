@@ -16,7 +16,7 @@ MODEL_DIR = os.path.join(RES_DIR, "models/")
 TMP_MODEL_DIR = os.path.join(MODEL_DIR, "tmp_model/")
 CUSTOM_MODEL_REPO_DIR = os.path.join(MODEL_DIR, "camembert_aux_amandes/")
 MODEL_REPO_URL = (
-    "https://fenrhjen:CamembertPublic01_@huggingface.co/fenrhjen/camembert_aux_amandes/"
+    "https://<username>:<password>/fenrhjen/camembert_aux_amandes/"
 )
 DF_CLEANED_LEMMA_PATH = 'df_amendement_cleaned_lemma.csv'
 NEEDED_FILES_MODEL = [
